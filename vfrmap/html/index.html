@@ -132,6 +132,7 @@
         hud.flaps.innerText = msg.flaps;
         hud.trim.innerText = msg.trim;
         hud.rudder_trim.innerText = msg.rudder_trim;
+        hud.dme_1.innerText = msg.dme_1;
       }
 
       ws = new WebSocket("ws://" + window.location.hostname + ":" + window.location.port + "/ws");
@@ -293,8 +294,13 @@
       function hide_hud() {
          var hud = document.getElementById("hud");
          hud.style.display = "none";
-         hud = document.getElementById("hide-hud");
-         hud.style.display = "none";
+        //  hud = document.getElementById("hide-hud");
+        //  hud.style.display = "none";
+      }
+
+      function hide_map() {
+        var map = document.getElementById("map");
+        map.style.display = "none";
       }
 
       document.addEventListener("DOMContentLoaded", function(event) {
@@ -319,6 +325,7 @@
           flaps: document.getElementById("flaps_value"),
           trim: document.getElementById("trim_value"),
           rudder_trim: document.getElementById("rudder_trim_value"),
+          dme_1: document.getElementById("dme_1_value"),
         };
 
         toggle_follow();
@@ -335,8 +342,10 @@
       <span class="field">Flaps: <span id="flaps_value" class="value">0</span></span>
       <span class="field">Trim: <span id="trim_value" class="value">0</span></span>
       <span class="field">R.Trim: <span id="rudder_trim_value" class="value">0</span></span>
+      <span class="field">DME 1: <span id="dme_1_value" class="value">0</span></span>
     </div>
     <span id="hide-hud" onclick="hide_hud();">hide hud</span>
+    <span id="hide-map" onclick="hide_map();">hide map</span>
 
     <div id="map"></div>
 
