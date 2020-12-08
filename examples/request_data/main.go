@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/lian/msfs2020-go/simconnect"
+	"github.com/peterDijk/msfs2020-go/simconnect"
 )
 
 // ported from: MSFS-SDK/Samples/SimConnectSamples/RequestData/RequestData.cpp
