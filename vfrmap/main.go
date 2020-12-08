@@ -34,7 +34,7 @@ type Report struct {
 	Flaps         float64   `name:"TRAILING EDGE FLAPS LEFT ANGLE" unit:"degrees"`
 	Trim          float64   `name:"ELEVATOR TRIM PCT" unit:"percent"`
 	RudderTrim    float64   `name:"RUDDER TRIM PCT" unit:"percent"`
-	DME_1					float64		`name: DME 1 NM" unit:nautical miles`
+	DME_1					float64		`name: NAV DME:1" unit:nautical miles`
 }
 
 func (r *Report) RequestData(s *simconnect.SimConnect) {
