@@ -7,7 +7,10 @@ const { useEffect, useState } = React;
 interface KnobSettings {
   step: number,
   min: number,
-  max: number
+  max: number,
+  resultValue: number,
+  setResultValue: (value: number) => void,
+  stopOnEnd?: boolean,
 }
 
 enum Direction {
@@ -15,9 +18,8 @@ enum Direction {
   ANTICLOCKWISE = 'ANTICLOCKWISE',
 }
 
-export const Knob: React.FC<KnobSettings> = ({ step, min, max}) => {
+export const Knob: React.FC<KnobSettings> = ({ step, min, max, resultValue, setResultValue, stopOnEnd }) => {
   const [knobValue, setKnobValue] = useState(0);
-  const [resultValue, setResultValue] = useState(755);
 
   const getResultValue = (direction: Direction): number => {
     const add = direction === Direction.CLOCKWISE ? step : -step;
@@ -40,16 +42,21 @@ export const Knob: React.FC<KnobSettings> = ({ step, min, max}) => {
     }
 
     const newResultValue = getResultValue(_direction);
-    const set = newResultValue > max ? min : newResultValue < min ? max : newResultValue;
-    setResultValue(set);
+    const setContinuous = newResultValue > max ? min : newResultValue < min ? max : newResultValue;
+    
+    if (!stopOnEnd) {
+      setResultValue(setContinuous);
+    } else {
+      if (newResultValue <= max && newResultValue >= min) {
+        setResultValue(newResultValue);
+      }
+    }
   }, [knobValue]);
   
   return (
     <div>
-      <div>result value: {resultValue}</div>
+      <div>{resultValue}</div>
       <CanvasKnob value={knobValue} onChange={setKnobValue} width={100} height={100} thickness={0.4} cursor={10} bgColor="#000" fgColor="#fff"  />
-      <div>value: {knobValue}</div>
-
     </div>
   )
 }

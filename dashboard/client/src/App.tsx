@@ -8,17 +8,14 @@ export const sleep = (time: number): Promise<unknown> =>
   });
 
 export const App = () => {
-  const [text, setText] = useState("...");
-
-  useEffect(() => {
-    sleep(1000).then(res => {
-      setText("React Typescript w/ Rollup");
-    });
-  }, []);
+  const [knob_1, setKnob_1] = useState(122);
+  const [knob_2, setKnob_2] = useState(800);
 
   return (
     <div>
-      <Knob step={5} min={0} max={999} />
+      <Knob step={1} min={117} max={137} resultValue={knob_1} setResultValue={setKnob_1} stopOnEnd/>
+      <Knob step={50} min={0} max={950} resultValue={knob_2} setResultValue={setKnob_2} />
+
     </div>
   );
 };
