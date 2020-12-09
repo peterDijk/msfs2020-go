@@ -15,8 +15,8 @@ export const App = () => {
     <div>
       <div className="text-center text-7xl">{knob_1}.{knob_2}</div>
       <div className="flex justify-around">
-        <Knob step={1} min={117} max={137} resultValue={knob_1} setResultValue={setKnob_1} stopOnEnd/>
-        <Knob step={25} min={0} max={950} resultValue={knob_2} setResultValue={setKnob_2} />
+        <Knob step={1} min={117} max={137} resultValue={knob_1} setResultValue={setKnob_1} knobStep={10} stopOnEnd/>
+        <Knob step={25} min={0} max={950} resultValue={knob_2} setResultValue={setKnob_2} knobStep={4} isInner/>
       </div>
     </div>
   );
