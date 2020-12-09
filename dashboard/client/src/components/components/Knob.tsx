@@ -57,11 +57,20 @@ export const Knob: React.FC<KnobSettings> = ({ step, min, max, resultValue, setR
       }
     }
   }, [knobValue]);
+
+  useEffect(() => {
+    const range = max - min;
+    const correctedStartValue = resultValue - min;
+    const percentage = (correctedStartValue * 100) / range;
+
+    setKnobValue(percentage);
+
+  },[])
   
   return (
-    <div>
+    <div className="p-6">
       <div>{resultValue}</div>
-      <CanvasKnob value={knobValue} onChange={setKnobValue} width={100} height={100} thickness={0.4} cursor={10} bgColor="#000" fgColor="#fff" step={10} />
+      <CanvasKnob value={knobValue} onChange={setKnobValue} width={100} height={100} thickness={0.4} cursor={10} bgColor="#000" fgColor="#fff" step={10} displayInput={false} />
     </div>
   )
 }
