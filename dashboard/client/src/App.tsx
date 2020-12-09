@@ -14,7 +14,7 @@ export const App = () => {
   return (
     <div className="flex justify-around">
       <Knob step={1} min={117} max={137} resultValue={knob_1} setResultValue={setKnob_1} stopOnEnd/>
-      <Knob step={50} min={0} max={950} resultValue={knob_2} setResultValue={setKnob_2} />
+      <Knob step={5} min={0} max={950} resultValue={knob_2} setResultValue={setKnob_2} />
 
     </div>
   );
