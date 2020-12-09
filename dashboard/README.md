@@ -1,3 +1,9 @@
+## dashboard (pvd) WIP
+## to build:
+run `packr` (this grabs the dist folder and includes it for the Go build)
+then `GOOS=windows GOARCH=amd64 go build -o dashboard.exe ./dashboard`
+
+
 # msfs2020-go/vfrmap
 
 local web-server using msfs2020-go/simconnect that will allow you to view your location, and some information about your trajectory including airspeed and altitude.
