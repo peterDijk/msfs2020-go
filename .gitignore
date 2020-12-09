@@ -7,5 +7,5 @@ SimConnect.dll
 push.sh
 _vendor
 dashboard/client/node_modules
-dashboard/client/dist
+dashboard/client/public
 .DS_Store
