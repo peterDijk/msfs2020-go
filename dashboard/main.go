@@ -11,7 +11,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
-	"path/filepath"
+	// "path/filepath"
 	"syscall"
 	"time"
 	"unsafe"
@@ -19,7 +19,9 @@ import (
 	"github.com/lian/msfs2020-go/simconnect"
 	"github.com/lian/msfs2020-go/vfrmap/html/leafletjs"
 	"github.com/lian/msfs2020-go/vfrmap/websockets"
+	"github.com/gobuffalo/packr"
 )
+
 
 type Report struct {
 	simconnect.RecvSimobjectDataByType
@@ -106,15 +108,15 @@ func main() {
 
 	exitSignal := make(chan os.Signal, 1)
 	signal.Notify(exitSignal, os.Interrupt, syscall.SIGTERM)
-	exePath, _ := os.Executable()
+	// exePath, _ := os.Executable()
 
 	ws := websockets.New()
 
-	s, err := simconnect.New("msfs2020-go/vfrmap")
+	s, err := simconnect.New("msfs2020-go/dashboard")
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("connected to flight simulator!")
+	fmt.Println("connected to flight simulator! dashboard pvd 0.0.1")
 
 	report := &Report{}
 	err = s.RegisterDataDefinition(report)
@@ -140,30 +142,34 @@ func main() {
 	//s.SubscribeToFacilities(simconnect.FACILITY_LIST_TYPE_WAYPOINT, s.GetDefineID(&simconnect.DataFacilityWaypoint{}))
 
 	startupTextEventID := s.GetEventID()
-	s.ShowText(simconnect.TEXT_TYPE_PRINT_WHITE, 15, startupTextEventID, "msfs2020-go/dashboard connected")
+	s.ShowText(simconnect.TEXT_TYPE_PRINT_WHITE, 15, startupTextEventID, "msfs2020-go/vfrmap connected")
 
 	go func() {
-		app := func(w http.ResponseWriter, r *http.Request) {
-			w.Header().Set("Access-Control-Allow-Origin", "*")
-			w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
-			w.Header().Set("Pragma", "no-cache")
-			w.Header().Set("Expires", "0")
-			w.Header().Set("Content-Type", "text/html")
+		// app := func(w http.ResponseWriter, r *http.Request) {
+		// 	w.Header().Set("Access-Control-Allow-Origin", "*")
+		// 	w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
+		// 	w.Header().Set("Pragma", "no-cache")
+		// 	w.Header().Set("Expires", "0")
+		// 	w.Header().Set("Content-Type", "text/html")
 
-			filePath := filepath.Join(filepath.Dir(exePath), "index.html")
+		// 	filePath := filepath.Join(filepath.Dir(exePath), "index.html")
 
-			if _, err = os.Stat(filePath); os.IsNotExist(err) {
-				w.Write(MustAsset(filepath.Base(filePath)))
-			} else {
-				fmt.Println("use local", filePath)
-				http.ServeFile(w, r, filePath)
-			}
-		}
+		// 	if _, err = os.Stat(filePath); os.IsNotExist(err) {
+		// 		w.Write(MustAsset(filepath.Base(filePath)))
+		// 	} else {
+		// 		fmt.Println("use local", filePath)
+		// 		http.ServeFile(w, r, filePath)
+		// 	}
+		// }
+
 
 		http.HandleFunc("/ws", ws.Serve)
 		http.Handle("/leafletjs/", http.StripPrefix("/leafletjs/", leafletjs.FS{}))
-		http.HandleFunc("/", app)
-		//http.Handle("/", http.FileServer(http.Dir(".")))
+		// http.HandleFunc("/", app)
+		box := packr.NewBox("./client/dist")
+		http.Handle("/", http.FileServer(box))
+
+		// http.Handle("/", http.FileServer(http.Dir(".")))
 
 		err := http.ListenAndServe(httpListen, nil)
 		if err != nil {
