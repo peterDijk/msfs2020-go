@@ -1,31 +1,18 @@
-import * as React from "react";
-const { useEffect, useState } = React;
+import React from 'react';
+import logo from './logo.svg';
+import './App.css';
+import { KnobTest } from './components/KnobTest';
 
-export const sleep = (time: number): Promise<unknown> =>
-  new Promise(resolve => {
-    setTimeout(() => resolve(), time);
-  });
-
-export const App = () => {
-  const [text, setText] = useState("...");
-
-  useEffect(() => {
-    sleep(1000).then(res => {
-      setText("React Typescript w/ Rollup");
-    });
-  }, []);
-
+function App() {
   return (
-    <div>
-      <div>
-        <a
-          href="https://github.com/peterDijk/react-typescript-rollup-starter"
-          target="_blank"
-        >
-          <img src="images/GitHub-Mark-Light-32px.png" />
-        </a>
-      </div>
-      {text}
+    <div className="App" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: '2rem'}}>
+      <KnobTest />
+      <KnobTest />
+      <KnobTest />
+      <KnobTest />
+
     </div>
   );
-};
+}
+
+export default App;
