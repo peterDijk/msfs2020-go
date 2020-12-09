@@ -70,7 +70,7 @@ export const Knob: React.FC<KnobSettings> = ({ step, min, max, resultValue, setR
   return (
     <div className="p-6">
       <div>{resultValue}</div>
-      <CanvasKnob value={knobValue} onChange={setKnobValue} width={100} height={100} thickness={0.4} cursor={10} bgColor="#000" fgColor="#fff" step={10} displayInput={false} />
+      <CanvasKnob value={knobValue} onChange={setKnobValue} width={200} height={200} thickness={0.4} cursor={10} bgColor="#000" fgColor="#fff" step={10} displayInput={false} />
     </div>
   )
 }
