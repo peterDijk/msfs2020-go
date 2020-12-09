@@ -1,5 +1,5 @@
 import * as React from "react";
-import { KnobTest } from "./components/components/KnobTest";
+import { Knob } from "./components/components/Knob";
 const { useEffect, useState } = React;
 
 export const sleep = (time: number): Promise<unknown> =>
@@ -18,16 +18,7 @@ export const App = () => {
 
   return (
     <div>
-      <div>
-        <a
-          href="https://github.com/peterDijk/react-typescript-rollup-starter"
-          target="_blank"
-        >
-          <img src="images/GitHub-Mark-Light-32px.png" />
-        </a>
-      </div>
-      {text}
-      <KnobTest />
+      <Knob step={5} min={0} max={999} />
     </div>
   );
 };
