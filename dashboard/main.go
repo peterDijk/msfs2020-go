@@ -140,7 +140,7 @@ func main() {
 	//s.SubscribeToFacilities(simconnect.FACILITY_LIST_TYPE_WAYPOINT, s.GetDefineID(&simconnect.DataFacilityWaypoint{}))
 
 	startupTextEventID := s.GetEventID()
-	s.ShowText(simconnect.TEXT_TYPE_PRINT_WHITE, 15, startupTextEventID, "msfs2020-go/vfrmap connected")
+	s.ShowText(simconnect.TEXT_TYPE_PRINT_WHITE, 15, startupTextEventID, "msfs2020-go/dashboard connected")
 
 	go func() {
 		app := func(w http.ResponseWriter, r *http.Request) {
