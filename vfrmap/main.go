@@ -34,6 +34,7 @@ type Report struct {
 	Flaps         float64   `name:"TRAILING EDGE FLAPS LEFT ANGLE" unit:"degrees"`
 	Trim          float64   `name:"ELEVATOR TRIM PCT" unit:"percent"`
 	RudderTrim    float64   `name:"RUDDER TRIM PCT" unit:"percent"`
+	DME_1         float64   `name:"NAV DME:1" unit:"nautical miles"`
 }
 
 func (r *Report) RequestData(s *simconnect.SimConnect) {
@@ -114,7 +115,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("connected to flight simulator!")
+	fmt.Println("connected to flight simulator! pvd 1.4")
 
 	report := &Report{}
 	err = s.RegisterDataDefinition(report)
@@ -262,6 +263,7 @@ func main() {
 						"flaps":          fmt.Sprintf("%.0f", report.Flaps),
 						"trim":           fmt.Sprintf("%.1f", report.Trim),
 						"rudder_trim":    fmt.Sprintf("%.1f", report.RudderTrim),
+						"dme_1":          fmt.Sprintf("%.1f", report.DME_1),
 					})
 
 				case s.DefineMap["TrafficReport"]:
