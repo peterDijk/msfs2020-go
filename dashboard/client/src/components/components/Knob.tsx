@@ -46,7 +46,6 @@ export const Knob: React.FC<KnobSettings> = ({ step, min, max, resultValue, setR
   const prevValue= usePrevious(knobValue);
 
   useEffect(() => {
-
     const direction = getDirection();
     const newResultValue = getResultValue(direction);
     const setContinuous = newResultValue > max ? min : newResultValue < min ? max : newResultValue;
@@ -62,8 +61,6 @@ export const Knob: React.FC<KnobSettings> = ({ step, min, max, resultValue, setR
 
   useEffect(() => {
     const range = max - min;
-    console.log({ range });
-
     const correctedStartValue = resultValue - min;
     const percentage = (correctedStartValue * 100) / range;
 
