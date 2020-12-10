@@ -292,6 +292,9 @@ func main() {
 			os.Exit(0)
 
 		case _ = <-ws.NewConnection:
+			ws.Broadcast(map[string]interface{}{
+				"helloFromServer": "pvd hoi",
+			})
 			// drain and skip
 
 		case m := <-ws.ReceiveMessages:
