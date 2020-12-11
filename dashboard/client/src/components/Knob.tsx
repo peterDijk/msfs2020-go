@@ -1,6 +1,6 @@
 import * as React from "react";
 import CanvasKnob from 'react-canvas-knob';
-import { usePrevious } from "../../lib/usePrevious";
+import { usePrevious } from "../lib/usePrevious";
 
 const { useEffect, useState } = React;
 

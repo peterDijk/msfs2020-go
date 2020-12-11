@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Knob } from "./components/components/Knob";
+import { Knob } from "./components/Knob";
 import { SocketConnect } from './lib/SocketConnect';
 const { useEffect, useState } = React;
 

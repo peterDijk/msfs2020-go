@@ -6,29 +6,21 @@ import ReactDOM from 'react-dom';
 import Socket from './socket';
 
 
-export class SocketConnect extends React.Component {
-  state: any;
+export class SocketHandler extends React.Component<{}, { connected: boolean }> {
+  socket: Socket;
 
     constructor(props: any) {
         super(props);
-
-        // state variables
         this.state = {
             connected: false,
         }
     }
 
-    // componentDidMount is a react life-cycle method that runs after the component 
-    //   has mounted.
     componentDidMount() {
-        // establish websocket connection to backend server.
         let ws = new WebSocket('ws://localhost:9000/ws');
 
-        // create and assign a socket to a variable.
-// @ts-ignore
         let socket = this.socket = new Socket(ws);
 
-        // handle connect and discconnect events.
         socket.on('connect', this.onConnect);
         socket.on('disconnect', this.onDisconnect);
 
@@ -53,7 +45,6 @@ export class SocketConnect extends React.Component {
     //    server on the socket.
     helloFromClient = () => {
         console.log('saying hello...');
-// @ts-ignore
         this.socket.emit('healthcheck', { msg: 'hello'});
     }
 
@@ -63,17 +54,9 @@ export class SocketConnect extends React.Component {
         console.log('hello from server! message:', data);
     }
 
-
-    // render returns the JSX (UI elements).
-    //   h1 title
-    //   button that calls the event emitter helloFromClient.
     render() {
-      console.log({ connected: this.state.connected})
-        const title = "Go Sockets Tutorial";
-
         return (
             <div>
-                <h1>{title}</h1>
                 <hr/>
                 <button onClick={this.helloFromClient}>
                     Say Hello to Backend Server
