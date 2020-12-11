@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Knob } from './components/Knob';
 import { SocketHandler } from './lib/SocketHandler';
 import { TrackedNavComProvider } from './lib/NavComState/reducer';
+import { Com1 } from './components/Com1';
 const { useEffect, useState } = React;
 
 export const sleep = (time: number): Promise<unknown> =>
@@ -12,7 +13,8 @@ export const sleep = (time: number): Promise<unknown> =>
 export const App = () => {
 	return (
 		<TrackedNavComProvider>
-			<SocketHandler />
+			{/* <SocketHandler /> */}
+      <Com1 />
 		</TrackedNavComProvider>
 	);
 };
