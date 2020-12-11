@@ -13,8 +13,8 @@ export const sleep = (time: number): Promise<unknown> =>
 export const App = () => {
 	return (
 		<TrackedNavComProvider>
-			{/* <SocketHandler /> */}
-      <Com1 />
+			<SocketHandler />
+			<Com1 />
 		</TrackedNavComProvider>
 	);
 };
