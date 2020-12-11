@@ -28,25 +28,30 @@ const initialState: State = {
 function reducer(state: State, action: NavComActions): State {
 	switch (action.type) {
 		case 'SET_COM1_ACTIVE':
-      return produce(state, (draft) => {
-        const { payload } = action;
+			return produce(state, (draft) => {
+				const { payload } = action;
 				draft.com1.active.kHz = payload.frequency.kHz;
 				draft.com1.active.mHz = payload.frequency.mHz;
 			});
 		case 'SET_COM1_STANDBY':
-      return produce(state, (draft) => {
-        const { payload } = action;
+			return produce(state, (draft) => {
+				const { payload } = action;
 				draft.com1.standby.kHz = payload.frequency.kHz;
 				draft.com1.standby.mHz = payload.frequency.mHz;
 			});
+		case 'COM1_SWAP_ACTIVE':
+			return produce(state, (draft) => {
+				draft.com1.active.kHz = state.com1.standby.kHz;
+				draft.com1.active.mHz = state.com1.standby.mHz;
+			});
 		case 'SET_COM1_STANDBY_KHZ':
 			return produce(state, (draft) => {
-        const { payload } = action;
+				const { payload } = action;
 				draft.com1.standby.kHz = payload.Hz;
 			});
 		case 'SET_COM1_STANDBY_MHZ':
 			return produce(state, (draft) => {
-        const { payload } = action;
+				const { payload } = action;
 				draft.com1.standby.mHz = payload.Hz;
 			});
 		default:

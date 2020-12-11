@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Knob } from './Knob';
 import { useTrackedNavComState, useNavComDispatch } from '../lib/NavComState/reducer';
-import { setCom1StandbyKhz, setCom1StandbyMhz } from '../lib/NavComState/actions';
+import { setCom1StandbyKhz, setCom1StandbyMhz, com1SwapActive } from '../lib/NavComState/actions';
 
 export const Com1: React.FC = () => {
 	const state = useTrackedNavComState();
@@ -10,10 +10,33 @@ export const Com1: React.FC = () => {
 		com1: { active, standby },
 	} = state;
 
+	function parseDigits(value: number): string {
+		const strValue = value.toString();
+		if (strValue.length === 2) {
+			return '0' + strValue;
+		}
+		if (strValue.length === 1) {
+			return '00' + strValue;
+		}
+
+		return strValue;
+	}
+
 	return (
 		<div>
-			<div className="text-center text-7xl">
-				{standby.kHz}.{standby.mHz}
+			<div className="flex flex-row justify-around items-center">
+				<div className="text-center text-7xl">
+					{parseDigits(active.kHz)}.{parseDigits(active.mHz)}
+				</div>
+				<button
+					className="bg-white rounded-sm w-16 h-12 text-black"
+					onClick={() => dispatch(com1SwapActive())}
+				>
+					{'<'}
+				</button>
+				<div className="text-center text-7xl">
+					{parseDigits(standby.kHz)}.{parseDigits(standby.mHz)}
+				</div>
 			</div>
 			<div className="flex justify-around">
 				<Knob

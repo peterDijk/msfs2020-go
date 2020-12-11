@@ -44,7 +44,12 @@ export type State = {
 	};
 };
 
-export type NavComActions = SetCom1Active | SetCom1Standby | SetCom1StandbyKhz | SetCom1StandbyMhz;
+export type NavComActions =
+	| SetCom1Active
+	| SetCom1Standby
+	| SetCom1StandbyKhz
+	| SetCom1StandbyMhz
+	| Com1SwapActive;
 
 export type SetCom1Active = {
 	type: 'SET_COM1_ACTIVE';
@@ -58,6 +63,10 @@ export type SetCom1Standby = {
 	payload: {
 		frequency: { kHz: 0; mHz: 0 };
 	};
+};
+
+export type Com1SwapActive = {
+	type: 'COM1_SWAP_ACTIVE';
 };
 
 export type SetCom1StandbyKhz = {
