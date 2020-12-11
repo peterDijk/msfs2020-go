@@ -37,7 +37,7 @@ export default class Socket {
 
 	// error handles an error on a websocket.
 	error(e) {
-		console.log('websocket error: ', e);
+		console.log('websocket error: ', JSON.stringify(e));
 	}
 
 	// emit sends a message on a websocket.
