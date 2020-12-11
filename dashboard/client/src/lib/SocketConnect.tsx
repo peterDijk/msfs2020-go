@@ -7,6 +7,7 @@ import Socket from './socket';
 
 
 export class SocketConnect extends React.Component {
+  state: any;
 
     constructor(props: any) {
         super(props);
@@ -33,7 +34,7 @@ export class SocketConnect extends React.Component {
 
         /* EVENT LISTENERS */
         // event listener to handle 'hello' from a server
-        socket.on('helloFromServer', this.helloFromServer);
+        socket.on('healtcheck_server', this.healtcheck_server);
     }
 
     // onConnect sets the state to true indicating the socket has connected 
@@ -58,7 +59,7 @@ export class SocketConnect extends React.Component {
 
     // helloFromServer is an event listener/consumer that handles hello messages 
     //    from the backend server on the socket.
-    helloFromServer = (data: any) => {
+    healtcheck_server = (data: any) => {
         console.log('hello from server! message:', data);
     }
 
@@ -67,6 +68,7 @@ export class SocketConnect extends React.Component {
     //   h1 title
     //   button that calls the event emitter helloFromClient.
     render() {
+      console.log({ connected: this.state.connected})
         const title = "Go Sockets Tutorial";
 
         return (

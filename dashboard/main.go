@@ -293,7 +293,10 @@ func main() {
 
 		case _ = <-ws.NewConnection:
 			ws.Broadcast(map[string]interface{}{
-				"helloFromServer": "pvd hoi",
+				"type": "healtcheck_server",
+				"data": map[string]interface{}{
+					"msg": "welcome",
+				},
 			})
 			// drain and skip
 
