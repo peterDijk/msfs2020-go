@@ -53,7 +53,7 @@ export class SocketConnect extends React.Component {
     helloFromClient = () => {
         console.log('saying hello...');
 // @ts-ignore
-        this.socket.emit('helloFromClient', 'hello server!');
+        this.socket.emit('healthcheck', { msg: 'hello'});
     }
 
     // helloFromServer is an event listener/consumer that handles hello messages 

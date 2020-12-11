@@ -41,8 +41,9 @@ export default class Socket {
     }
 
     // emit sends a message on a websocket.
-    emit(name, data) {
-        const message = JSON.stringify({name, data});
+    emit(type, data) {
+        const message = JSON.stringify({type, ...data});
+        console.log({ message })
         this.ws.send(message);
     }
 
