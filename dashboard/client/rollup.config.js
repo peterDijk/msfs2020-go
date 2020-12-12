@@ -17,74 +17,83 @@ import { generateSW } from 'rollup-plugin-workbox';
 const production = !process.env.ROLLUP_WATCH;
 
 export default {
-  input: './src/index.tsx',
-  output: {
-    file: `dist/app.bundle.js`,
-    format: 'iife',
-    name: 'bundle',
-    exports: 'named',
-    sourcemap: true,
-    //    treeshake: production
-  },
-  plugins: [
-    replace({
-      'process.env.NODE_ENV': JSON.stringify('production'),
-      // 'process.env.PUBLIC_URL': JSON.stringify('https://'),
-    }),
-    htmlTemplate({
-      template: './template.html',
-      target: 'index.html',
-    }),
-    postcss({
-      plugins: [require('tailwindcss')],
-    }),
-    json(),
-    nodeResolve({ preferBuiltins: true, browser: true }),
-    typescript(),
-    commonjs({
-      include: ['node_modules/**'],
-      exclude: ['node_modules/process-es6/**'],
-      namedExports: {
-        'node_modules/react/index.js': [
-          'Children',
-          'Component',
-          'PropTypes',
-          'createElement',
-          'useState',
-          'useEffect',
-          'useRef',
-        ],
-        'node_modules/react-dom/index.js': ['render'],
-      },
-    }),
-    globals(),
-    builtins(),
-    babel({
-      presets: ['@babel/env'],
-      extensions: ['.ts', '.js'],
-    }),
-    generateSW({
-      swDest: 'dist/service-worker.js',
-      globDirectory: 'dist',
-    }),
-    copy({
-      targets: [
-        {
-          src: 'src/images',
-          dest: 'dist',
-        },
-      ],
-    }),
-    uglify(),
-    !production &&
-      (serve({
-        contentBase: './dist',
-        open: true,
-        host: 'localhost',
-        port: 3000,
-      }),
-      livereload({
-        watch: 'dist',
-      })),
-  ],
+	input: './src/index.tsx',
+	output: {
+		file: `dist/app.bundle.js`,
+		format: 'iife',
+		name: 'bundle',
+		exports: 'named',
+		sourcemap: true,
+		//    treeshake: production
+	},
+	plugins: [
+		replace({
+			'process.env.NODE_ENV': JSON.stringify('production'),
+			// 'process.env.PUBLIC_URL': JSON.stringify('https://'),
+		}),
+		htmlTemplate({
+			template: './template.html',
+			target: 'index.html',
+		}),
+		postcss({
+			plugins: [require('tailwindcss')],
+		}),
+		json(),
+		nodeResolve({ preferBuiltins: true, browser: true }),
+		typescript(),
+		commonjs({
+			include: ['node_modules/**'],
+			exclude: ['node_modules/process-es6/**'],
+			namedExports: {
+				'node_modules/react/index.js': [
+					'Children',
+					'Component',
+					'PropTypes',
+					'createElement',
+					'useState',
+					'useEffect',
+					'useRef',
+          'useReducer',
+          'useLayoutEffect',
+          'createContext',
+          'useContext',
+          'useMemo',
+          'useDebugValue',
+          'useCallback',
+          'memo',
+				],
+          'node_modules/react-dom/index.js': ['render', 'unstable_batchedUpdates'],
+          'node_modules/scheduler/index.js': ['unstable_runWithPriority', 'unstable_NormalPriority'],
+			},
+		}),
+		globals(),
+		builtins(),
+		babel({
+			presets: ['@babel/env'],
+			extensions: ['.ts', '.js'],
+		}),
+		generateSW({
+			swDest: 'dist/service-worker.js',
+			globDirectory: 'dist',
+		}),
+		copy({
+			targets: [
+				{
+					src: 'src/images',
+					dest: 'dist',
+				},
+			],
+		}),
+		uglify(),
+		!production &&
+			(serve({
+				contentBase: './dist',
+				open: true,
+				host: 'localhost',
+				port: 3000,
+			}),
+			livereload({
+				watch: 'dist',
+			})),
+	],
 };
